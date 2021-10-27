@@ -1,15 +1,23 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
-import { ProductsDto } from './dto/products.dto';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { ProductsRequestDto } from './requests/ProductsRequestDto';
+import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
+  constructor(private readonly productService: ProductsService) {}
+
+  @Get('/:id')
+  async get(@Param() id: string) {
+    return this.productService.get(id);
+  }
+
   @Post()
-  purchase(@Body() purchaseRequest: ProductsDto) {
-    return 'This is test!!';
+  async create(@Body() product: ProductsRequestDto) {
+    return this.productService.create(product);
   }
 
   @Put()
-  return() {
-    return 'This is test!!';
+  async update(@Body() product: ProductsRequestDto) {
+    return this.productService.update(product);
   }
 }
