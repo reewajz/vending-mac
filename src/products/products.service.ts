@@ -19,8 +19,4 @@ export class ProductsService {
   public get(_id: string) {
     return this.productModel.findOne({ _id }).exec();
   }
-
-  public update(product: Product) {
-    return;
-  }
 }

@@ -1,7 +1,8 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { PaymentMethod } from '../../common/interfaces/PaymentMethod';
+import { PurchaseReq } from '../../common/interfaces/PurchaseRequest';
 
-export class PurchaseRequest {
+export class PurchaseRequest implements PurchaseReq {
   @IsString()
   @IsNotEmpty()
   readonly productId: string;
