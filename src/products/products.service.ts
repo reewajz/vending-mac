@@ -19,4 +19,8 @@ export class ProductsService {
   public get(_id: string) {
     return this.productModel.findOne({ _id }).exec();
   }
+
+  public getAll() {
+    return this.productModel.find().exec();
+  }
 }

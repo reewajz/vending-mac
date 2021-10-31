@@ -1,6 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  ForbiddenException,
+  Post,
+  Render,
+} from '@nestjs/common';
 import { PurchaseRequest } from './requests/PurchaseRequest';
 import { PurchaseService } from './PurchaseService';
+import { ProductNotFoundException } from '../common/exception/ProductNotFoundException';
 
 @Controller('purchase')
 export class PurchaseController {
@@ -14,8 +21,19 @@ export class PurchaseController {
    *
    */
   @Post('/purchase')
+  @Render('index')
   async purchase(@Body() purchaseRequest: PurchaseRequest) {
-    return await this.purchaseService.purchase(purchaseRequest);
+    try {
+      return await this.purchaseService.purchase(purchaseRequest);
+    } catch (error) {
+      if (error instanceof ForbiddenException) {
+        return { errorMessage: error.message };
+      }
+
+      if (error instanceof ProductNotFoundException) {
+        return { errorMessage: error.message };
+      }
+    }
   }
 
   /**

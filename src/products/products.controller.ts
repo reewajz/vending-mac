@@ -1,10 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { ProductsRequestDto } from './requests/ProductsRequestDto';
 import { ProductsService } from './products.service';
+import { Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productService: ProductsService) {}
+
+  @Get()
+  root(@Res() res: Response) {
+    return res.render('index');
+  }
 
   /**
    * @api {get} /products/:id Get product by id
