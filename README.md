@@ -45,6 +45,9 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+FrontEnd
+go to http://localhost:3000/products
+
 ## Test
 
 ```bash
